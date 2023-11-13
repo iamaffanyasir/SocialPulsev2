@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { Input } from "@/components/ui/input";
-import GridPostList from "@/components/shared/GridPostList";
-import Loader from "@/components/shared/Loader";
-import { useGetPosts, useSearchPosts } from "@/lib/react-query/queriesAndMutation";
+
+import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
+import { useGetPosts, useSearchPosts } from "@/lib/react-query/queriesAndMutation";
+import Loader from "@/components/shared/Loader";
+import GridPostList from "@/components/shared/GridPostList";
+// import { GridPostList, Loader } from "@/components/shared";
+// import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
 
 export type SearchResultProps = {
   isSearchFetching: boolean;
@@ -45,7 +48,7 @@ const Explore = () => {
     );
 
   const shouldShowSearchResults = searchValue !== "";
-  const shouldShowPosts = !shouldShowSearchResults &&
+  const shouldShowPosts = !shouldShowSearchResults && 
     posts.pages.every((item) => item.documents.length === 0);
 
   return (
