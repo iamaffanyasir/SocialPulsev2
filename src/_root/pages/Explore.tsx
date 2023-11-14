@@ -66,7 +66,7 @@ const Explore = () => {
 
       {/* ... (other components) */}
 
-      <div className="flex flex-wrap gap-9 w-full max-w-5xl">
+      <div className="flex flex-wrap gap-9 w-full max-w-5xl mt-10">
         {shouldShowSearchResults ? (
           <SearchResults isSearchFetching={isSearchFetching} searchedPosts={searchedPosts} />
         ) : shouldShowPosts ? (
