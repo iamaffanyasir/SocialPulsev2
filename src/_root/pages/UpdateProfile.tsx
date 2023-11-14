@@ -2,14 +2,22 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea, Input, Button } from "@/components/ui";
+import { ProfileUploader, Loader } from "@/components/shared";
+
 import { ProfileValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserById, useUpdateUser } from "@/lib/react-query/queriesAndMutation";
-import ProfileUploader from "@/components/shared/ProfileUploader";
-import Loader from "@/components/shared/Loader";
+import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
 
 const UpdateProfile = () => {
   const { toast } = useToast();
@@ -27,8 +35,9 @@ const UpdateProfile = () => {
     },
   });
 
+  // Queries
   const { data: currentUser } = useGetUserById(id || "");
-  const { mutateAsync: updateUser, isPending: isLoadingUpdate } =
+  const { mutateAsync: updateUser, isLoading: isLoadingUpdate } =
     useUpdateUser();
 
   if (!currentUser)
@@ -38,6 +47,7 @@ const UpdateProfile = () => {
       </div>
     );
 
+  // Handler
   const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
     const updatedUser = await updateUser({
       userId: currentUser.$id,
@@ -122,6 +132,7 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
+                      disabled
                     />
                   </FormControl>
                   <FormMessage />
